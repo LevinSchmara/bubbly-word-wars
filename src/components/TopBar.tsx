@@ -4,6 +4,7 @@ import { useGameContext } from "@/contexts/GameContext";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import { toast } from "sonner";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const TopBar: React.FC = () => {
   const { gameState } = useGameContext();
@@ -32,13 +33,17 @@ const TopBar: React.FC = () => {
         </div>
       </div>
       
-      <div className="flex items-center gap-2">
-        <div className="text-sm px-3 py-1 bg-secondary rounded-lg border border-border">
-          ID: <span className="font-mono text-primary">{gameState.id}</span>
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <div className="text-sm px-3 py-1 bg-secondary rounded-lg border border-border">
+            ID: <span className="font-mono text-primary">{gameState.id}</span>
+          </div>
+          <Button variant="outline" size="icon" onClick={copyGameId} className="shrink-0">
+            <Copy className="h-4 w-4" />
+          </Button>
         </div>
-        <Button variant="outline" size="icon" onClick={copyGameId}>
-          <Copy className="h-4 w-4" />
-        </Button>
+        <div className="h-8 w-px bg-border mx-1" />
+        <LanguageSwitcher />
       </div>
     </div>
   );

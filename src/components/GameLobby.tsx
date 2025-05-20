@@ -1,10 +1,10 @@
-
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGameContext } from "@/contexts/GameContext";
 import { motion } from "framer-motion";
+import { T, useLanguage } from "@/contexts/LanguageContext";
 
 const GameLobby: React.FC = () => {
   const { 
@@ -18,6 +18,8 @@ const GameLobby: React.FC = () => {
     joinGame,
     isLoading
   } = useGameContext();
+  
+  const { t } = useLanguage();
 
   return (
     <motion.div
@@ -26,31 +28,41 @@ const GameLobby: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="w-full max-w-md mx-auto p-6 card-gradient rounded-2xl border border-border glow-box"
     >
-      <h2 className="text-2xl font-bold text-center mb-6 glow">Word Race</h2>
+      <h2 className="text-2xl font-bold text-center mb-6 glow">
+        <T k="gameLobby.title" />
+      </h2>
       
       <Tabs defaultValue="create" className="w-full">
         <TabsList className="grid w-full grid-cols-2 mb-6">
-          <TabsTrigger value="create">Create Game</TabsTrigger>
-          <TabsTrigger value="join">Join Game</TabsTrigger>
+          <TabsTrigger value="create">
+            <T k="gameLobby.createTab" />
+          </TabsTrigger>
+          <TabsTrigger value="join">
+            <T k="gameLobby.joinTab" />
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="create" className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Your Name</label>
+            <label className="block text-sm font-medium mb-2">
+              <T k="gameLobby.yourName" />
+            </label>
             <Input
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
-              placeholder="Enter your name"
+              placeholder={t('gameLobby.namePlaceholder')}
               className="w-full bg-secondary"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">Game Name</label>
+            <label className="block text-sm font-medium mb-2">
+              <T k="gameLobby.gameName" />
+            </label>
             <Input
               value={gameName}
               onChange={(e) => setGameName(e.target.value)}
-              placeholder="Enter game name"
+              placeholder={t('gameLobby.gameNamePlaceholder')}
               className="w-full bg-secondary"
             />
           </div>
@@ -60,27 +72,34 @@ const GameLobby: React.FC = () => {
             className="w-full"
             disabled={isLoading}
           >
-            {isLoading ? "Creating..." : "Create Game"}
+            {isLoading ? 
+              <T k="gameLobby.creating" /> : 
+              <T k="gameLobby.createGame" />
+            }
           </Button>
         </TabsContent>
         
         <TabsContent value="join" className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Your Name</label>
+            <label className="block text-sm font-medium mb-2">
+              <T k="gameLobby.yourName" />
+            </label>
             <Input
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
-              placeholder="Enter your name"
+              placeholder={t('gameLobby.namePlaceholder')}
               className="w-full bg-secondary"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">Game ID</label>
+            <label className="block text-sm font-medium mb-2">
+              <T k="gameLobby.gameId" />
+            </label>
             <Input
               value={gameId}
               onChange={(e) => setGameId(e.target.value.toUpperCase())}
-              placeholder="Enter game ID"
+              placeholder={t('gameLobby.gameIdPlaceholder')}
               className="w-full bg-secondary"
             />
           </div>
@@ -90,7 +109,10 @@ const GameLobby: React.FC = () => {
             className="w-full"
             disabled={isLoading}
           >
-            {isLoading ? "Joining..." : "Join Game"}
+            {isLoading ? 
+              <T k="gameLobby.joining" /> : 
+              <T k="gameLobby.joinGame" />
+            }
           </Button>
         </TabsContent>
       </Tabs>

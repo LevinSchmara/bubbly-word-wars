@@ -117,11 +117,13 @@ const GameBoard: React.FC = () => {
             />
             <YAxis 
               type="number"
-              domain={[0, (dataMax: number) => Math.max(dataMax * 1.1, 10)]}
+              domain={[0, (dataMax: number) => Math.ceil(Math.max(dataMax * 1.1, 10))]}
               axisLine={false}
               tickLine={false}
               tick={{ fontSize: 12 }}
               tickFormatter={(value) => `${value} pts`}
+              tickCount={6}
+              allowDecimals={false}
             />
             <Tooltip 
               contentStyle={{ 
